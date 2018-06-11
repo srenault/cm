@@ -3,7 +3,7 @@ from typing import List
 
 from bs4 import BeautifulSoup
 
-from errors import BadAuthenticationError
+from simplebank.errors import BadAuthenticationError
 from simplebank.api import Bank
 from simplebank.models import BankAccount, BankOperation
 
@@ -85,6 +85,28 @@ class CreditMutuel(Bank):
             return r.text
         else:
             return self._get_cached('csv_' + account_id)
+
+    def _fetch_ofx(self, account_id: str) -> str:
+        self._fetch_informations_and_cache_it_if_necessary()
+
+        # Retrieve informations from cache
+        url = self.BASE_URL + self._get_cached('url_post_csv')
+        account_check_name = self._get_cached('account_' + account_id + '_check_name')
+
+        # Download the file
+        post_data = {
+            "data_formats_selected": "csv",
+            "data_formats_options_csv_fileformat": "2",
+            "data_formats_options_csv_dateformat": "0",
+            "data_formats_options_csv_fieldseparator": "0",
+            "data_formats_options_csv_amountcolnumber": "0",
+            "data_formats_options_csv_decimalseparator": "1",
+            account_check_name: "on",
+            "_FID_DoDownload.x": "0",
+            "_FID_DoDownload.y": "0"
+        }
+        r = self.session.post(url, post_data)
+        return r.text
 
     def list_accounts(self) -> List[BankAccount]:
         self._fetch_informations_and_cache_it_if_necessary()
