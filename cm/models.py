@@ -1,7 +1,6 @@
 import datetime
 from typing import List
 
-
 class BankOperation(object):
     def __init__(self, date_completed: datetime.date, date_posted: datetime.date, label: str, amount: float) -> None:
         self.date_completed = date_completed

@@ -1,15 +1,15 @@
+import requests
 import datetime
 from typing import List
 from functools import reduce
 
 from bs4 import BeautifulSoup
 
-from simplebank.errors import BadAuthenticationError
-from simplebank.api import Bank
-from simplebank.models import BankAccount, BankAccountInput, BankDownloadForm
+from cm.errors import BadAuthenticationError
+from cm.models import BankAccount, BankAccountInput, BankDownloadForm
 
 
-class CreditMutuel(Bank):
+class Client(object):
     BASE_URL = "https://www.creditmutuel.fr"
     AUTH_URL = BASE_URL + "/fr/authentification.html"
     DOWNLOAD_URL = BASE_URL + "/fr/banque/compte/telechargement.cgi"
@@ -18,9 +18,15 @@ class CreditMutuel(Bank):
     DATE_FORMAT = "%d/%m/%Y"
 
     def __init__(self, login: str, password: str):
-        super().__init__()
         self.login = login
         self.password = password
+
+    def __enter__(self):
+        self.session = requests.session()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
 
     def is_authenticated(self) -> bool:
         try:
@@ -121,4 +127,3 @@ class CreditMutuel(Bank):
 
     def compute_overall_balance(self) -> float:
         return reduce((lambda balance, accountB: balance + accountB.balance), self.list_accounts(), 0)
-        

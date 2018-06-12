@@ -7,17 +7,16 @@ with open('README.rst', 'r') as f:
     readme = f.read()
 
 setup(
-    name='simple-bank-api',
+    name='sre-cm',
     version='0.0.1',
-    author='Maxime Falaize',
-    author_email='pro@maxime-falaize.fr',
-    packages=['simplebank', ],
+    author='Sebastien Renault',
+    author_email='srenault.contact@gmail.com',
+    packages=['cm', ],
     license='GPLv3',
-    url='https://github.com/mfalaize/simple-bank-api',
+    url='https://github.com/srenault/cm',
     description='This is a lightweight python 3 API designed to extract data from banks',
     long_description=readme,
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
