@@ -14,3 +14,5 @@ class Config(object):
         directory = config['TRANSACTIONS']['directory']
         date_format = config['TRANSACTIONS']['dateformat']
 
+    class Stats(object):
+        db_path = config['STATS']['dbpath']

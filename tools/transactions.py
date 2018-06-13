@@ -1,7 +1,6 @@
 import os
 import argparse
-import time
-from datetime import date, datetime
+from datetime import datetime
 from cm.config import Config
 from cm.client import Client
 
@@ -26,7 +25,7 @@ def last_export_date(directory: str) -> object:
     filtered_files = list(filter(lambda file: os.path.splitext(file)[1] == '.ofx', files))
     date_format = Config.Transactions.date_format
     dates = sorted(map(lambda file: datetime.strptime(os.path.splitext(file)[0], date_format), filtered_files), reverse=True)
-    return dates[0] if len(dates) > 0 else None
+    return dates[0] if dates else None
 
 def export(directory: str, account_id: str, start_date: object) -> None:
     with Client(Config.Login.username, Config.Login.password) as cm:
@@ -37,5 +36,4 @@ def export(directory: str, account_id: str, start_date: object) -> None:
         cm.download_ofx_to(ofx_file_path, account_id, start)
 
 if __name__ == '__main__':
-   main()    
-    
+    main()

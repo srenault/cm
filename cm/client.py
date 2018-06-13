@@ -119,7 +119,7 @@ class Client(object):
 
         return accounts
 
-    def fetch_balance(self, account_id: str):
+    def fetch_balance(self, account_id: str) -> float:
         csv = self.fetch_csv(account_id)
         lines = csv.splitlines()
         last = lines.pop()
