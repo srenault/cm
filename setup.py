@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-with open('README.rst', 'r') as f:
+with open('README.md', 'r') as f:
     readme = f.read()
 
 setup(
@@ -11,10 +11,11 @@ setup(
     version='0.0.1',
     author='Sebastien Renault',
     author_email='srenault.contact@gmail.com',
+    package_dir = {'': 'lib'},
     packages=['cm', ],
     license='GPLv3',
     url='https://github.com/srenault/cm',
-    description='This is a lightweight python 3 API designed to extract data from banks',
+    description='This is a lightweight python 3 API designed to extract data from cm',
     long_description=readme,
     classifiers=[
         'Environment :: Console',

@@ -47,5 +47,6 @@ cd cm
 python setup.py install
 
 cd tools
+pipenv install
 pipenv install -e ../
 ```
