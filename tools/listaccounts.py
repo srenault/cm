@@ -8,4 +8,4 @@ def main():
             print(f"{account.label} | {account.id} | {account.balance}")
 
 if __name__ == '__main__':
-   main()
+    main()

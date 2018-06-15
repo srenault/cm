@@ -4,10 +4,10 @@ except ImportError:
     from distutils.core import setup
 
 with open('README.md', 'r') as f:
-    readme = f.read()
+    README = f.read()
 
 setup(
-    name='sre-cm',
+    name='cm',
     version='0.0.1',
     author='Sebastien Renault',
     author_email='srenault.contact@gmail.com',
@@ -16,7 +16,7 @@ setup(
     license='GPLv3',
     url='https://github.com/srenault/cm',
     description='This is a lightweight python 3 API designed to extract data from cm',
-    long_description=readme,
+    long_description=README,
     classifiers=[
         'Environment :: Console',
         'Environment :: Web Environment',

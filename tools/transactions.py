@@ -9,10 +9,12 @@ def main():
     parser.add_argument('accountids', help='Account ids to export', nargs='+')
     args = parser.parse_args()
 
-    for account_id in args.accountids:
-        directory = ensure_export_dir(account_id)
-        start_date = last_export_date(directory)
-        export(directory, account_id, start_date)
+    with Client(Config.Login.username, Config.Login.password) as cm:
+        cm.authenticate()
+        for account in cm.list_accounts():
+            directory = ensure_export_dir(account.id)
+            start_date = last_export_date(directory)
+            export(directory, account.id, start_date)
 
 def ensure_export_dir(account_id: str) -> str:
     directory = Config.Transactions.directory + '/' + account_id
