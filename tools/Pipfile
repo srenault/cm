@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 "ed0a5ba" = {path = "./..", editable = true}
+ofxparse = "*"
 
 [dev-packages]
 
