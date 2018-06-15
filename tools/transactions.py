@@ -1,14 +1,9 @@
 import os
-import argparse
 from datetime import datetime
 from cm.config import Config
 from cm.client import Client
 
 def main():
-    parser = argparse.ArgumentParser(description='Export CM transactions.')
-    parser.add_argument('accountids', help='Account ids to export', nargs='+')
-    args = parser.parse_args()
-
     with Client(Config.Login.username, Config.Login.password) as cm:
         cm.authenticate()
         for account in cm.list_accounts():
