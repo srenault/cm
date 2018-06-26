@@ -1,15 +1,21 @@
 import os
+import argparse
 from datetime import datetime
 from cm.config import Config
 from cm.client import Client
 
 def main():
-    with Client(Config.Login.username, Config.Login.password) as cm:
-        cm.authenticate()
-        for account in cm.list_accounts():
-            directory = ensure_export_dir(account.id)
+    parser = argparse.ArgumentParser(description='Export CM transactions.')
+    parser.add_argument('--accounts', help='Account ids to export', nargs='+')
+    args = parser.parse_args()
+
+    with Client(Config.Login.username, Config.Login.password) as cm_client:
+        cm_client.authenticate()
+        account_ids = hasattr(args, 'account_ids') or map(lambda account: account.id, cm_client.list_accounts())
+        for account_id in account_ids:
+            directory = ensure_export_dir(account_id)
             start_date = last_export_date(directory)
-            export(directory, account.id, start_date)
+            export(directory, account_id, start_date)
 
 def ensure_export_dir(account_id: str) -> str:
     directory = Config.Transactions.directory + '/' + account_id
@@ -25,12 +31,12 @@ def last_export_date(directory: str) -> object:
     return dates[0] if dates else None
 
 def export(directory: str, account_id: str, start_date: object) -> None:
-    with Client(Config.Login.username, Config.Login.password) as cm:
-        cm.authenticate()
+    with Client(Config.Login.username, Config.Login.password) as cm_client:
+        cm_client.authenticate()
         ofx_file_name = datetime.utcnow().strftime(Config.Transactions.date_format)
         ofx_file_path = f"{directory}/{ofx_file_name}.ofx"
         start = start_date.strftime('%Y/%m/%d') if start_date else None
-        cm.download_ofx_to(ofx_file_path, account_id, start)
+        cm_client.download_ofx_to(ofx_file_path, account_id, start)
 
 if __name__ == '__main__':
     main()
