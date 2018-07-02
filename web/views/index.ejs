@@ -11,19 +11,32 @@
   </head>
   <body>
     <div id="montly-overview"></div>
-    <div id="xxx"></div>
+    <div id="lastmonth-overview"></div>
+    <div id="average-expense"></div>
+    <div id="total-balance"></div>
+
     <script src='/javascripts/app.js' type='text/javascript'></script>
     <script type='text/javascript'>
       CM.buildMonthlyOverviewChart(
         '#montly-overview',
-        <%- JSON.stringify(averageBalances) %>,
         <%- JSON.stringify(monthlyBalances) %>,
         <%- JSON.stringify(startingBalances) %>,
       );
 
-      CM.build(
-        '#xxx',
-        <%- JSON.stringify(lastThreeMonthBalances) %>,
+      CM.buildMonthlyOverviewChart(
+        '#lastmonth-overview',
+        <%- JSON.stringify(lastMonthBalances) %>,
+        <%- JSON.stringify(lastMonthStartingBalances) %>,
+      );
+
+      CM.buildAverageOverviewChart(
+        '#average-expense',
+        <%- JSON.stringify(averageBalances) %>
+      );
+
+      CM.buildTotalBalanceChart(
+        '#total-balance',
+        <%- JSON.stringify(totalBalances) %>,
       );
     </script>
   </body>
