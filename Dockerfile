@@ -10,6 +10,6 @@ WORKDIR /usr/src/app/tools
 
 RUN pip install -r requirements.txt
 
-RUN pip install -e ../
+RUN pip install -r requirements.txt --no-index --find-links ../
 
 ENTRYPOINT [ "python" ]
