@@ -49,4 +49,5 @@ python setup.py install
 cd tools
 pipenv install
 pipenv install -e ../
+pipenv run python3 <tool>.py
 ```
