@@ -29,7 +29,7 @@ setup(
     ],
     install_requires=[
         'requests >= 2.9.0',
-        'beautifulsoup4 >= 4.4.0'
+        'beautifulsoup4 >= 4.7.1'
     ],
     python_requires='>=3'
 )

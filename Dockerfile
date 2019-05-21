@@ -1,15 +1,13 @@
-FROM python:3
+FROM python:3.7-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY . .
 
 RUN python setup.py install
 
-WORKDIR /usr/src/app/tools
+WORKDIR /app/tools
 
 RUN pip install -r requirements.txt
 
-RUN pip install -r requirements.txt --no-index --find-links ../
-
-ENTRYPOINT [ "python" ]
+ENTRYPOINT ["python"]

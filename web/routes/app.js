@@ -8,7 +8,7 @@ const MonthlyOverviewGraph = require('../graph/monthlyOverview');
 const AvertageMonthlyOverviewGraph = require('../graph/averageMonthlyOverview');
 
 router.get('/', (req, res, next) => {
-  TotalBalancesGraph.getLastMonths(3).then((totalBalances) => {
+  TotalBalancesGraph.getLastMonths(12).then((totalBalances) => {
     return MonthlyOverviewGraph.getCurrentMonth().then(({ startingBalances, monthlyBalances }) => {
       return MonthlyOverviewGraph.getLastMonth().then(({ monthlyBalances: lastMonthBalances, startingBalances: lastMonthStartingBalances }) => {
         return AvertageMonthlyOverviewGraph.get().then((averageBalances) => {

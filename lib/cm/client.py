@@ -48,7 +48,7 @@ class Client(object):
     def fetch_download_form(self) -> BankDownloadForm:
         response = self.session.get(self.DOWNLOAD_URL)
         soup = BeautifulSoup(response.text, "html.parser")
-        form = soup.select("#P:F")[0]
+        form = soup.find_all(id="P:F")[0]
         action = form.attrs["action"]
         accounts = {}
 
@@ -57,7 +57,7 @@ class Client(object):
             split = label.split(" ", maxsplit=3)
             id = "".join(split[0:3])
             check_id = account_label.attrs["for"]
-            check = soup.select("#" + check_id)[0]
+            check = soup.find_all(id=check_id)[0]
             check_name = check.attrs["name"]
             bank_account_input = BankAccountInput(id, label, check_id, check_name)
             accounts[id] = bank_account_input

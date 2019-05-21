@@ -4,11 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-ed0a5ba = {path = "./..",editable = true}
 ofxparse = "*"
-cm = {path = "./..",editable = true}
+cm = {path = "cm",editable = true}
 
 [dev-packages]
-
-[requires]
-python_version = "3.7.2"
